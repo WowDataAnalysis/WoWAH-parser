@@ -1,3 +1,5 @@
+# Forked and Updated by Myles O'Neill May 2016 to collect more information from the original files
+
 # Nov, 2013 (orig Sept 2013).
 # This file will (hopefully) read all the little WoW AH files and make a csv.
 # One file to unite them all! (It is like 3.5 GB of text.)
@@ -21,14 +23,14 @@ import time			# For timing how long it takes.
 max_char = 0		# Tracks char ID for error testing.
 max_guild = 0		# Tracks guild ID for error testing.
 mfc = 0				# Tracks how many little files were counted.
-write_data_loc = '~/Documents/'       	     						# Adjust to your dir as needed.
+write_data_loc = '~/wowah/output/'       	     						# Adjust to your dir as needed.
 write_data_file = 'wowah_data.csv'
 write_data_filename = write_data_loc + write_data_file
-the_dir = '~/Documents/'								# This is where the WoWAH folders are located, adjust as needed. Have them in their own subdir.
+the_dir = '~/wowah/WoWAH/'								# This is where the WoWAH folders are located, adjust as needed. Have them in their own subdir.
 
 #REGEX
-line_re = re.compile(r'^.*"[\d+],\s(.*),\s(\d+),(\d+),\s?(\d*),.*".*$')
-#                          dummy   time    seq  char   guild
+line_re = re.compile(r'^.*"[\d+],\s(.*),\s?(\d*),\s?(\d*),\s?(\d*),\s?(\d*),\s?([A-Z]\w+\s?)+,\s?([A-Z]\w+\s?),\s?([A-Z]\w+\s?).*".*$')
+#                          dummy   time1   seq2    3char   4guild    5level     6race              7charclass       8zone
 
 # REGEX NOTES
 # groups: 1=timestamp, 3=avatarID, 4=guild.
@@ -72,13 +74,18 @@ def parse_and_write(file, output_file):
         if data is not(None):
             timestamp = data.group(1)
             char = data.group(3)
+            level = data.group(5)
+            race = data.group(6)
+            charclass = data.group(7)
+            zone = data.group(8)
+
             if data.group(4) is not(''):
                 guild = data.group(4)
             else:
                 guild = '-1'   # Note there are some missing values, i.e. errant -1.
             print timestamp    # This is so you can keep track of where it is. Max Jan 2009 IIRC.
 
-            new_line = char + ',' + guild + ',' + timestamp + '\n'
+            new_line = char + ',' + level + ',' + race + ',' + charclass + ',' + zone +  ',' + guild + ',' + timestamp + '\n'
             output_file.write(new_line)
                 
         else:
@@ -114,7 +121,7 @@ def read_tree(output_file):
 def main():	
     #open write file here
     output_file = open(write_data_filename, 'a')    # 'a' is very important, it appends the new data to the big file. 
-    fieldnames = ('char, guild, timestamp\n')
+    fieldnames = ('char, level, race, charclass, zone, guild, timestamp\n')
     output_file.write(fieldnames)
     start_time = time.time()
     read_tree(output_file)
@@ -134,7 +141,3 @@ def main():
 # Main call
 
 main()
-
-
-
-
