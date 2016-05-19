@@ -1,3 +1,17 @@
+Myles Update:
+
+I modified the code to capture more columns of information from the data.
+
+Instructions:
+- download script
+- update script paths to point to the WoWAH folder (the folder containing quarterly folders of data) and chosen output dir
+- run script from the terminal (python wowah-parser.py)
+- examine terminal output and grab your final single csv
+
+> Also note: missing guild data is likely because users didn't have guilds, its not an error
+
+Original Readme:
+
 This project is one I did for a paper and modified it slightly for the General Assembly class on Data Science.
 
 It reads the little files (about 130,000 of them) from the decompressed World of Warcraft Avatar History 
