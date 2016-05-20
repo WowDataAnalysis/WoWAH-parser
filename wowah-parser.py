@@ -29,7 +29,7 @@ write_data_filename = write_data_loc + write_data_file
 the_dir = '~/wowah/WoWAH/'								# This is where the WoWAH folders are located, adjust as needed. Have them in their own subdir.
 
 #REGEX
-line_re = re.compile(r'^.*"[\d+],\s(.*),\s?(\d*),\s?(\d*),\s?(\d*),\s?(\d*),\s?([A-Z]\w+\s?)+,\s?([A-Z]\w+\s?),\s?([A-Z]\w+\s?).*".*$')
+line_re = re.compile(r'^.*"[\d+],\s(.*),\s?(\d*),\s?(\d*),\s?(\d*),\s?(\d*),\s?([A-Z].*)+,\s?([A-Z].*),\s?([A-Z].*).*".*$')
 #                          dummy   time1   seq2    3char   4guild    5level     6race              7charclass       8zone
 
 # REGEX NOTES
